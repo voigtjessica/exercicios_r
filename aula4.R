@@ -17,11 +17,14 @@ notas  <- read.csv(text = notas , strip.white = TRUE)
 
 #Objetivo: criar uma coluna para saber se eles passaram ou não
 
+
 boletins1 <- notas %>%
   mutate(resultado_final = ifelse(nota >= 5, "aprovado",
                                   "reprovado"))
 
-passaram
+#Se (ifelse) variável cumprir condição, "resultado1", [se não] "resultado2"
+
+boletins1
 
 #agora, vamos fingir que notas menores que 2 são automaticamente reprovados 
 # e notas entre 2 e 5 vão para recuperação
@@ -33,7 +36,7 @@ boletins2 <- notas %>%
 
 boletins2
 
-#Agora vamos tentar outro exemplo, criem a tabela de compras abaixo:
+#Agora vamos tentar outro exemplo, criem a tabela abaixo:
 
 
 transparencia_equipe <- c("nome, cidade",
@@ -45,7 +48,20 @@ transparencia_equipe <- c("nome, cidade",
 
 transparencia_equipe  <- read.csv(text = transparencia_equipe , strip.white = TRUE)
 
-#Use o ifelse e o | (ou) para criar a coluna dos estados de cada uma das cidades
+#Use o ifelse e o | (ou) para criar a coluna dos estados de cada uma das cidades:
+
+estados1 <- transparencia_equipe %>%
+  mutate(UF = ifelse(cidade == "Itabuna", "BA", "SP"))
+
+estados1
+
+# Baixa santista, RMSP e Itabuna = macroregiões
+
+regioes <- transparencia_equipe %>%
+  mutate(macroregiao = ifelse(cidade == "Santos" | cidade == "Guarujá",
+                              "baixada santista",
+                              ifelse(cidade == "Osasco", "RMSP","Itabuna")))
+regioes
 
 ## Aula 4
 
@@ -63,6 +79,7 @@ super_heroes <-
     "   Joker,       bad,   male,                DC",
     "Catwoman,       bad, female,                DC",
     " Hellboy,      good,   male, Dark Horse Comics")
+
 super_heroes <- read.csv(text = super_heroes, strip.white = TRUE)
 
 publishers <- 
@@ -80,6 +97,7 @@ publishers
 ## verbos
 ## inner_join, left_join, right_join, full_join etc.
 inner_join(super_heroes, publishers)
+
 # perdemos Hell boy
 
 left_join(super_heroes, publishers)
@@ -88,3 +106,5 @@ right_join(super_heroes, publishers)
 
 anti_join(super_heroes, publishers)
 # deixa o que n tem match
+
+

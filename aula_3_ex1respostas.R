@@ -29,6 +29,12 @@ names(banco_tb)
 banco_tb %>%
   arrange(desc(Idade))
 
+arrange(banco_tb, desc(Idade))
+
+#crescente
+banco_tb %>%
+  arrange(Idade)
+
 # 2b. Crie um objeto e mude os nomes de todas as variáveis
 
 banco_tb_2 <- banco_tb %>%
@@ -38,6 +44,9 @@ banco_tb_2 <- banco_tb %>%
          origem1 = Origem)
 
 names(banco_tb_2)
+
+#tolower nos headers (procurar)
+
 
 # 2c. Ordenar os 3 membros mais velhos da TB
 
@@ -49,6 +58,10 @@ banco_tb %>%
 
 fem_sp <- banco_tb %>%
   filter(Gênero == "Fem" & Origem == "São Paulo")
+
+fem_sp <- banco_tb %>%
+  filter(Gênero == "Fem",
+         Origem == "São Paulo")
 
 fem_sp
 
@@ -74,7 +87,10 @@ macro <- banco_tb %>%
   mutate(macro_regiao = ifelse(Origem == "São Paulo" | 
                                  Origem == "Osasco", "gde_sp",
                                ifelse(Origem == "Santos" | 
-                                        Origem == "Guarujá", "baixada_santista", Origem)))
+                                        Origem == "Guarujá", "baixada_santista", Origem))) %>%
+  group_by(macro_regiao) %>%
+  summarise(membros = n())
+
 macro
 
 # 2h. BONUS: Crie um novo objeto e agrupe os membros da TB por gênero E por idade.
